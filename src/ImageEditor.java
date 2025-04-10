@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 import java.util.Stack;
 
 class ImageEditor extends JPanel {
@@ -43,13 +47,19 @@ class ImageEditor extends JPanel {
     }
 
     /**
-     * TODO.
+     * reads the file data into a new BufferedImage object instance, and returns that image.
      *
-     * @param in TODO.
+     * @param in is the file name in ppm format to be read
      */
     void readPpmImage(String in) {
         try {
             // TODO read the PPM image file into the "img" variable.
+            Scanner scanner = new Scanner(new File(in));
+
+            while (scanner.hasNext("#")) {
+                scanner.nextLine();
+            }
+
             // Read the width, height into the "width" and "height" variables.
             int width = 0;
             int height = 0;
@@ -61,7 +71,7 @@ class ImageEditor extends JPanel {
             this.REDO_STACK.clear();
             this.zoomImageIndex = 0;
             this.addImage(img);
-        } catch (RuntimeException e) { // <- this will need to be a different exception!
+        } catch (RuntimeException | FileNotFoundException e) { // <- this will need to be a different exception!
             throw new RuntimeException(e);
         }
     }
