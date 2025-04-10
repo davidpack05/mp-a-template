@@ -59,13 +59,22 @@ class ImageEditor extends JPanel {
             while (scanner.hasNext("#")) {
                 scanner.nextLine();
             }
-
-            // Read the width, height into the "width" and "height" variables.
-            int width = 0;
-            int height = 0;
+            // Read the width, height into the "width" and "height" variables;
+            String format = scanner.next();
+            int MaxValue = scanner.nextInt();
+            int width = scanner.nextInt();
+            int height = scanner.nextInt();
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
             // TODO Read the pixel data.
-
+            for (int y=0; y<height; y++){
+                for(int x=0; x<width; x++){
+                    int r = scanner.nextInt();
+                    int g = scanner.nextInt();
+                    int b = scanner.nextInt();
+                    Color currentColor = new Color(r,g,b);
+                    img.setRGB(x,y,currentColor.getRGB());
+                }
+            }
             // Do not modify the lines below.
             this.UNDO_STACK.clear();
             this.REDO_STACK.clear();
