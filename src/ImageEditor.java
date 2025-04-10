@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.Scanner;
 import java.util.Stack;
 
@@ -64,8 +62,9 @@ class ImageEditor extends JPanel {
             int MaxValue = scanner.nextInt();
             int width = scanner.nextInt();
             int height = scanner.nextInt();
+
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-            // TODO Read the pixel data.
+
             for (int y=0; y<height; y++){
                 for(int x=0; x<width; x++){
                     int r = scanner.nextInt();
@@ -86,16 +85,35 @@ class ImageEditor extends JPanel {
     }
 
     /**
-     * TODO.
+     * write a file using the input "out".
      *
-     * @param out TODO.
+     * @param out is the filepath/name.
      */
     void writePpmImage(String out) {
-        try {
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(out))) {
             BufferedImage img = this.getImage();
             // TODO write the image to the PPM file.
+            int height = img.getHeight();
+            int width = img.getWidth();
 
-        } catch (RuntimeException e) { // <- this will need to be a different exception!
+            writer.println("P3");
+            writer.println(width + " " + height);
+            writer.println("255");
+
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    Color rgb = new Color(img.getRGB(x,y));
+
+                    int r = rgb.getRed();
+                    int g = rgb.getGreen();
+                    int b = rgb.getBlue();
+
+                    writer.println(r + " " + g + " " + b);
+                }
+            }
+
+        } catch (RuntimeException | IOException e) { // <- this will need to be a different exception!
             throw new RuntimeException(e);
         }
     }
