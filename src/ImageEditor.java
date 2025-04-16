@@ -51,7 +51,7 @@ class ImageEditor extends JPanel {
      */
     void readPpmImage(String in) {
         try {
-            // TODO read the PPM image file into the "img" variable.
+
             Scanner scanner = new Scanner(new File(in));
 
             while (scanner.hasNext("#")) {
@@ -74,6 +74,8 @@ class ImageEditor extends JPanel {
                     img.setRGB(x,y,currentColor.getRGB());
                 }
             }
+
+            scanner.close();
             // Do not modify the lines below.
             this.UNDO_STACK.clear();
             this.REDO_STACK.clear();
@@ -93,7 +95,7 @@ class ImageEditor extends JPanel {
 
         try (PrintWriter writer = new PrintWriter(new FileWriter(out))) {
             BufferedImage img = this.getImage();
-            // TODO write the image to the PPM file.
+
             int height = img.getHeight();
             int width = img.getWidth();
 
@@ -112,6 +114,7 @@ class ImageEditor extends JPanel {
                     writer.println(r + " " + g + " " + b);
                 }
             }
+            writer.close();
 
         } catch (RuntimeException | IOException e) { // <- this will need to be a different exception!
             throw new RuntimeException(e);
