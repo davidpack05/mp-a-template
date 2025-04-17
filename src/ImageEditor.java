@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Scanner;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 class ImageEditor extends JPanel {
 
