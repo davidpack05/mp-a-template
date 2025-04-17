@@ -59,9 +59,10 @@ class ImageEditor extends JPanel {
             }
             // Read the width, height into the "width" and "height" variables;
             String format = scanner.next();
-            int MaxValue = scanner.nextInt();
             int width = scanner.nextInt();
             int height = scanner.nextInt();
+            int MaxValue = scanner.nextInt();
+
 
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
