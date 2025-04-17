@@ -75,20 +75,32 @@ class ImageOperations {
     }
 
     /**
-     * TODO.
+     * Repeats the image in either direction that is declared n times.
      *
-     * @param img TODO.
-     * @param n   TODO.
-     * @param dir TODO.
-     * @return TODO.
+     * @param img the image you gave to us like this is obvious user.
+     * @param n   n times (like new york times).
+     * @param dir direction that it repeats.
+     * @return the image .
      */
     static BufferedImage repeat(BufferedImage img, int n, RepeatMenuItem.RepeatDirection dir) {
         BufferedImage newImg = null;
+        int width =img.getWidth();
+        int height =img.getHeight();
         // newImg must be instantiated in both branches with the correct dimensions.
         if (dir == RepeatMenuItem.RepeatDirection.HORIZONTAL) {
-            // TODO repeat the image horizontally.
+            newImg = new BufferedImage(width*n,height,BufferedImage.TYPE_INT_RGB);
+            Graphics g = newImg.getGraphics();
+            for(int i=0; i<n; i++){
+                g.drawImage(img,i*width,0,null);
+            }
+            g.dispose();
         } else {
-            // TODO repeat the image vertically.
+            newImg = new BufferedImage(width,height*n,BufferedImage.TYPE_INT_RGB);
+            Graphics g = newImg.getGraphics();
+            for(int i=0; i<n; i++){
+                g.drawImage(img,i*height,0,null);
+            }
+            g.dispose();
         }
         return newImg;
     }
