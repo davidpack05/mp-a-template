@@ -4,14 +4,32 @@ import java.awt.image.BufferedImage;
 class ImageOperations {
 
     /**
-     * TODO.
+     * returns the image with the red channel pixels removed.
      *
-     * @param img TODO.
-     * @return TODO.
+     * @param img is the image to remove the red pixels from.
+     * @return a new image.
      */
     static BufferedImage zeroRed(BufferedImage img) {
-        // TODO.
-        BufferedImage newImg = null;
+        int height = img.getHeight();
+        int width = img.getWidth();
+
+        BufferedImage newImg = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color rgb = new Color(img.getRGB(x,y));
+
+                int r = 0;
+                int g = rgb.getGreen();
+                int b = rgb.getBlue();
+
+                Color newRGB = new Color(r,g,b);
+
+                newImg.setRGB(x, y, newRGB.getRGB());
+
+            }
+        }
+
         return newImg;
     }
 
@@ -28,30 +46,81 @@ class ImageOperations {
     }
 
     /**
-     * TODO.
-     * @param img TODO.
-     * @return TODO.
+     * Invert the pixels of an image, by subtracting the pixel values by the max amount, IE. 255 255 255 inverse = 0 0 0.
+     *
+     * @param img Is the image to invert.
+     * @return a new image.
      */
     static BufferedImage invert(BufferedImage img) {
-        // TODO.
-        BufferedImage newImg = null;
+        int height = img.getHeight();
+        int width = img.getWidth();
+
+        BufferedImage newImg = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color rgb = new Color(img.getRGB(x, y));
+
+                int r = 255 - rgb.getRed();
+                int g = 255 - rgb.getGreen();
+                int b = 255 - rgb.getBlue();
+
+                Color newRGB = new Color(r,g,b);
+
+                newImg.setRGB(x, y, newRGB.getRGB());
+            }
+        }
+
         return newImg;
     }
 
     /**
-     * TODO.
+     * mirrors the image, IE pixels on right side go to left side, and pixels on left side go to right side.
      *
-     * @param img TODO.
-     * @param dir TODO.
-     * @return TODO.
+     * @param img image to be mirrored.
+     * @param dir the direction in which to mirror.
+     * @return the mirrored image.
      */
     static BufferedImage mirror(BufferedImage img, MirrorMenuItem.MirrorDirection dir) {
-        // TODO instantiate newImg with the *correct* dimensions.
-        BufferedImage newImg = null;
+        int height = img.getHeight();
+        int width = img.getWidth();
+
+        BufferedImage newImg = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+
         if (dir == MirrorMenuItem.MirrorDirection.VERTICAL) {
-            // TODO mirror the image vertically.
+            for (int y = 0; y < height; y++ ) {
+                int x = 0;
+                while (x < width / 2) {
+                    Color rgb = new Color(img.getRGB(x, y));
+                    newImg.setRGB(x,y,rgb.getRGB());
+                    x++;
+                }
+                int x2 = width / 2;
+                x = width / 2;
+                while (x < width) {
+                    Color rgb = new Color(img.getRGB(x2, y));
+                    newImg.setRGB(x,y,rgb.getRGB());
+                    x++;
+                    x2--;
+                }
+            }
         } else {
-            // TODO mirror the image horizontally.
+            for (int x = 0; x < height; x++ ) {
+                int y = 0;
+                while (y < width / 2) {
+                    Color rgb = new Color(img.getRGB(x, y));
+                    newImg.setRGB(x,y,rgb.getRGB());
+                    y++;
+                }
+                int y2 = width / 2;
+                y = width / 2;
+                while (y < width) {
+                    Color rgb = new Color(img.getRGB(x, y2));
+                    newImg.setRGB(x,y,rgb.getRGB());
+                    y++;
+                    y2--;
+                }
+            }
         }
         return newImg;
     }
