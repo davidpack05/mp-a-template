@@ -40,8 +40,31 @@ class ImageOperations {
      * @return TODO.
      */
     static BufferedImage grayscale(BufferedImage img) {
-        // TODO.
-        BufferedImage newImg = null;
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        BufferedImage newImg = new BufferedImage(width, height, img.getType());
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color rgb = new Color(img.getRGB(x,y));
+
+                int r = rgb.getRed();
+                int g = rgb.getGreen();
+                int b = rgb.getBlue();
+
+                int gray = (int)(0.299 * r + 0.587 * g + 0.114 * b);
+
+                Color grayColor = new Color(gray, gray, gray);
+
+                newImg.setRGB(x,y, grayColor.getRGB());
+            }
+        }
+
+
+
+
+        //BufferedImage newImg = null;
         return newImg;
     }
 
@@ -133,12 +156,25 @@ class ImageOperations {
      * @return TODO.
      */
     static BufferedImage rotate(BufferedImage img, RotateMenuItem.RotateDirection dir) {
-        // TODO instantiate newImg with the *correct* dimensions.
-        BufferedImage newImg = null;
+        int width = img.getWidth();
+        int height = img.getHeight();
+
+        BufferedImage newImg = new BufferedImage(height, width, img.getType());
+
         if (dir == RotateMenuItem.RotateDirection.CLOCKWISE) {
-            // TODO rotate the image clockwise.
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = img.getRGB(x,y);
+                    newImg.setRGB(height - 1 - y, x, rgb);
+                }
+            }
         } else {
-            // TODO rotate the image counter-clockwise.
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int rgb = img.getRGB(x, y);
+                    newImg.setRGB(y, width - 1 - x, rgb);
+                }
+            }
         }
         return newImg;
     }
