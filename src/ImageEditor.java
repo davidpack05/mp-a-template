@@ -59,14 +59,14 @@ class ImageEditor extends JPanel {
             }
             // Read the width, height into the "width" and "height" variables;
             String format = scanner.next();
-            int MaxValue = scanner.nextInt();
             int width = scanner.nextInt();
             int height = scanner.nextInt();
+            int MaxValue = scanner.nextInt();
 
             BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 
             for (int y=0; y<height; y++){
-                for(int x=0; x<width; x++){
+                for (int x=0; x<width; x++){
                     int r = scanner.nextInt();
                     int g = scanner.nextInt();
                     int b = scanner.nextInt();
@@ -75,12 +75,13 @@ class ImageEditor extends JPanel {
                 }
             }
 
-            scanner.close();
+
             // Do not modify the lines below.
             this.UNDO_STACK.clear();
             this.REDO_STACK.clear();
             this.zoomImageIndex = 0;
             this.addImage(img);
+            scanner.close();
         } catch (RuntimeException | FileNotFoundException e) { // <- this will need to be a different exception!
             throw new RuntimeException(e);
         }
@@ -89,7 +90,7 @@ class ImageEditor extends JPanel {
     /**
      * write a file using the input "out".
      *
-     * @param out is the filepath/name.
+     * @param out is the file path/name.
      */
     void writePpmImage(String out) {
 
@@ -114,6 +115,7 @@ class ImageEditor extends JPanel {
                     writer.println(r + " " + g + " " + b);
                 }
             }
+
             writer.close();
 
         } catch (RuntimeException | IOException e) { // <- this will need to be a different exception!
