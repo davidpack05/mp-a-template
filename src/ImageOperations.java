@@ -34,10 +34,10 @@ class ImageOperations {
     }
 
     /**
-     * TODO.
+     * turns the image to gray by using a formula for what each pixel is supposed to look like.
      *
-     * @param img TODO.
-     * @return TODO.
+     * @param img the image to be edited.
+     * @return a gray scale version the image provided.
      */
     static BufferedImage grayscale(BufferedImage img) {
         int width = img.getWidth();
@@ -149,11 +149,11 @@ class ImageOperations {
     }
 
     /**
-     * TODO.
+     * rotates the image based on the direction specified in the dir variable..
      *
-     * @param img TODO.
-     * @param dir TODO.
-     * @return TODO.
+     * @param img the image to be rotated.
+     * @param dir the direction to be turned.
+     * @return a rotated image.
      */
     static BufferedImage rotate(BufferedImage img, RotateMenuItem.RotateDirection dir) {
         int width = img.getWidth();
