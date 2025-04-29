@@ -39,7 +39,14 @@ public class WeatherForecast {
             while ((inputLine = reader.readLine()) != null) {
                 response.append(inputLine);
             }
-            
+
+            reader.close();
+
+            JsonElement element = JsonParser.parseString(String.valueOf(response));
+            JsonObject data = element.getAsJsonObject().get("hourly").getAsJsonObject();
+            JsonArray times = data.getAsJsonArray("times");
+            JsonArray temps = data.getAsJsonArray("temperature_2m");
+
 
 
         } catch (Exception e) {
