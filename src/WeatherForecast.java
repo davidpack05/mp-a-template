@@ -39,8 +39,7 @@ public class WeatherForecast {
             while ((inputLine = reader.readLine()) != null) {
                 response.append(inputLine);
             }
-
-            JsonElement element =
+            
 
 
         } catch (Exception e) {
