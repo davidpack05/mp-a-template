@@ -52,7 +52,7 @@ public class WeatherForecast {
             System.out.println("7-Day Forecast in Fahrenheit:");
             String currentDate="";
             for (int i =0; i<times.size();i++){
-                String dateTime = times.getAsString();
+                String dateTime = times.get(i).getAsString();
                 String date = dateTime.split("T")[0];
                 String time = dateTime.split("T")[1];
                 if (!date.equals(currentDate)) {
