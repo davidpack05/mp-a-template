@@ -4,28 +4,13 @@ import java.net.URL;
 import com.google.gson.*;
 
 public class WeatherForecast {
-    /*
-    private static double X;
-    private static double Y;
-    private static String Z;
-    private static String W;
-    private static String V;
-     */
 
     private static double latitude;
     private static double longitude;
     private static String unit;
     private static final String RATE = "temperature_2m";
     private static final String TIMEZONE = "auto";
-    /*
-    public WeatherForecast(double latitude, double longitude, String rate, String unit, String timezone) {
-        WeatherForecast.X = latitude;
-        WeatherForecast.Y = longitude;
-        WeatherForecast.Z = rate;
-        WeatherForecast.W = unit;
-        WeatherForecast.V = timezone;
-    }
-    */
+
     public WeatherForecast(double latitude, double longitude, String unit) {
         WeatherForecast.latitude = latitude;
         WeatherForecast.longitude = longitude;
@@ -39,8 +24,9 @@ public class WeatherForecast {
             return;
         }
 
+
         double lat = 0, lon = 0;
-        String unit = "F"; // default to Fahrenheit
+        String unit = "F";
 
         for (int i = 0; i < args.length; i++) {
             switch (args[i]) {
@@ -93,7 +79,7 @@ public class WeatherForecast {
             System.out.printf("7-Day Forecast in %s:%n", WeatherForecast.unit.equals("celsius") ? "Celsius" : "Fahrenheit");
 
             String currentDate = "";
-            for (int i = 0; i < times.size(); i++) {
+            for (int i = 0; i < times.size(); i+=3) {
                 String dateTime = times.get(i).getAsString();
                 String date = dateTime.split("T")[0];
                 String time = dateTime.split("T")[1];
